@@ -8,7 +8,7 @@
 #define LARGURA 10
 #define TEMPO_QUEDA 400
 #define TEMPO_RESPOSTA 40
-#define TAMANHO_DO_BLOCO 20
+#define TAMANHO_DO_BLOCO 12
 
 int pontuacao = 0;
 int posicao_da_peca_no_tabuleiroX=3;
@@ -17,7 +17,7 @@ int indice_peca = 0;
 int borda[ALTURA][LARGURA]= {0};
 
 
-unsigned int video_color[] = {video_WHITE, video_YELLOW, video_RED,
+short int video_color[] = {video_WHITE, video_YELLOW, video_RED,
 video_GREEN, video_BLUE, video_CYAN, video_MAGENTA, video_GREY,
 video_PINK, video_ORANGE};
 
@@ -64,7 +64,7 @@ int pecas[6][4][4] = {
 };
 
 //Desenho do bloco no vga, no qual recebe o eixo x e o eixo y para saber exatamente onde colocar o bloco
-void desenharBloco(int x, int y, unsigned *cor){
+void desenharBloco(int x, int y, short int cor){
 
     int x1= x * TAMANHO_DO_BLOCO;
     int y1= y * TAMANHO_DO_BLOCO;
@@ -116,6 +116,29 @@ void descida() {
 }
 
 
+void fixarPeca(){
+    for(int i=0; i<4; i++){
+        for(int j =0; j<4; j++){
+            if(pecas[indice_peca][i][j]){
+                borda[posicao_da_peca_no_tabuleiroY + i][posicao_da_peca_no_tabuleiroX + j]=1;
+            }
+        }
+    }
+}
+
+int colisao(int x, int y, int indice_peca_atual){
+    for(int i =0; i<4; i ++){
+        for (int j =0; j <4; j++1){
+            if(peca[indice_peca_atual][i][j]&& (y+i >= ALTURA || x+j >= LARGURA || x +j <0 || borda[y+1][x+j])){
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+
+
 int main(){
     video_open();
     srand(time(0));
@@ -124,7 +147,6 @@ int main(){
     while (1){
 
         desenharCampo();
-        usleep(TEMPO_QUEDA * 1000);
         descida();
         
         if (posicao_da_peca_no_tabuleiroY >= ALTURA - 4) {
