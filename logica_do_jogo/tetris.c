@@ -3,20 +3,20 @@
 #include <time.h>
 #include <unistd.h>
 #include <intelfpgaup/video.h> 
-
+#include <intelfpgaup/KEY.h>
 
 //Tamanho do jogo 20x10
-#define ALTURA 20
-#define LARGURA 10
+#define LINHA 20
+#define COLUNA 10
 #define TEMPO_QUEDA 400
 #define TEMPO_RESPOSTA 40
 #define TAMANHO_DO_BLOCO 12
 
-int pontuacao = 0;
-int posicao_da_peca_no_tabuleiroX=3; //Coluna no tabuleiro, posição horizontal
-int posicao_da_peca_no_tabuleiroY=0; // linha no tabuleiro, posição vertical
+int pontuacao = 0; //
+int posicaoPeca_coluna=4; //Coluna no tabuleiro, posição horizontal
+int posicaoPeca_linha=0; // linha no tabuleiro, posição vertical
 int indice_peca = 0;
-int borda[ALTURA][LARGURA]= {0};  //Matriz que representa o espaço do jogo. O zero significa espaço em branco
+int borda[LINHA][COLUNA]= {0};  //Matriz que representa o espaço do jogo. O zero significa espaço em branco, matriz toda de zeros.
 
 //Todos os tipos de cores
 short int video_color[] = {video_WHITE, video_YELLOW, video_RED,
@@ -65,14 +65,15 @@ int pecas[6][4][4] = {
 
 };
 
-// Função responsável por desenhar bloco
+// Função responsável por desenhar bloco x- coluna, y- linha 
 void desenharBloco(int x, int y, short int cor){
     //parametro x e é  as coordenadas da posição do bloco no tabuleiro
-    //x é uma posição no tabuleiro multiplicando por tamanho do bloco para obter a posição na tela em pixels. 
+    //Convertendo posição do tabuleiro em pixels 
+    //Se o bloco tem 12 pixels de largura, a posição 2 no tabuleiro vira 24 pixels na tela (2* 12 =24)
     int x1= x * TAMANHO_DO_BLOCO;
     int y1= y * TAMANHO_DO_BLOCO;
-    //A largura do bloco é somada à posição inicial (x1) para obter o limite direito do bloco.
-    int x2= x1 + TAMANHO_DO_BLOCO;
+
+    int x2= x1 + TAMANHO_DO_BLOCO; 
     int y2= y1 + TAMANHO_DO_BLOCO;
     video_box(x1,y1,x2,y2,cor);
 }
@@ -82,72 +83,54 @@ void desenharCampo(){
     //Limpa a tela primeiro
     video_clear();
 
-
+    
     //loop para  percorrer todas as linhas para desenhar as bordas laterais
-    for(int y=0; y <= ALTURA; y++){
+    for(int y=0; y <= LINHA; y++){
         desenharBloco(0,y,video_ORANGE); //a borda esquerda
-        desenharBloco(LARGURA+1,y,video_ORANGE); // a borda direita 
+        desenharBloco(COLUNA+1,y,video_ORANGE); // a borda direita 
     }   
 
     //percorre todas as colunas para desenhar a borda base
-    for(int x=0;x<=LARGURA+1; x++){
-        desenharBloco(x,ALTURA,video_ORANGE);
+    for(int x=0;x<=COLUNA+1; x++){
+        desenharBloco(x,LINHA,video_ORANGE); //Lembrando que LINHA é a ultima linha 
     }
 
-    //laço para percorrer cada linha para ver se a bloco fixo nela
-    for (int y=0; y< ALTURA; y++){
-        for (int x=0; x<LARGURA; x++){
-            if(borda[y][x]){ 
+    //laço para percorrer toda a matri para fazer os blocos fixo nela
+    for (int y=0; y< LINHA; y++){
+        for (int x=0; x<COLUNA; x++){
+            if(borda[y][x]){  // No caso, se tiver um valor positivo, ou seja, se tiver um bloco 
                 //Verificando se no ponto atual na matriz o valor é 1, ou seja, tem peça
                 desenharBloco(x+1,y,video_GREY);
             }
         }
     }
 
-    //Desenha o bloco da peça na posição correta do tabuleiro, ajustando as coordenadas da peça 
+    //Desenha o bloco da peça na posição correta do tabuleiro, passando por toda a matriz do bloco
     for(int i=0; i<4;i++){
         for(int j=0; j<4;j++){
-            if(pecas[indice_peca][i][j]){
+            if(pecas[indice_peca][i][j]){ //Se tiver um valor positivo, eu desenho
                 //verificar que se na posição atual tem algum bloco, se sim ele precisa ser desenhado 
-                desenharBloco(posicao_da_peca_no_tabuleiroX + j +1, posicao_da_peca_no_tabuleiroY + i, video_color[indice_peca]);
+                desenharBloco(posicaoPeca_coluna+ j +1, posicaoPeca_linha + i, video_color[indice_peca]);
             }
         }
+    
+    
     }
 
+    //Mostrando a potuação
+    char texto_da_pontuacao[20];
+    sprintf(texto_da_pontuacao,"Pontuacao %d", pontuacao); //Fanzedo a string da texto_da_pontuacao
+    video_text(15, 2, texto_da_pontuacao);  // mostrando na tela
     video_show();
 
 }
 
-int descida() {
-    if(!colisao(posicao_da_peca_no_tabuleiroX,posicao_da_peca_no_tabuleiroY+1, indice_peca)){
-        //Verifica se a peça pode descer uma linha sem colidir com outra peça ou a base
-        posicao_da_peca_no_tabuleiroY++; // Move o bloco para baixo
-        return 0; //peça não precisa ser fixada ainda
-    }
-    else{
-        fixarPeca();
-        checarLinhas();
-        return 1;
-    }
-}
-
-
-void fixarPeca(){
-    //Um laço que percorre as linhas da peça atual
-    //Verifica se a posição atual da peça contém um bloco
-    for(int i=0; i<4; i++){
-        for(int j =0; j<4; j++){
-            if(pecas[indice_peca][i][j]){
-                borda[posicao_da_peca_no_tabuleiroY + i][posicao_da_peca_no_tabuleiroX + j]=1; //atualizaçao da matriz borda, marcando a posição da peça no tabuleiro
-            }
-        }
-    }
-}
-//Verifica se a posição (i, j) da peça está ocupada
+//Verifica se a posição (i, j) da peça está ocupada, x - coluna, y - linha
 int colisao(int x, int y, int indice_peca_atual){
     for(int i =0; i<4; i ++){
-        for (int j =0; j <4; j++1){
-            if(peca[indice_peca_atual][i][j]&& (y+i >= ALTURA || x+j >= LARGURA || x +j <0 || borda[y+1][x+j])){
+        for (int j =0; j <4; j++){  //Pecorre todos os blocos da peça
+            //Se encontrar qualquer colisão, ou na base ou em algum bloco vai retornar 1
+            if(pecas[indice_peca_atual][i][j]&& (y+i >= LINHA || x+j >= COLUNA || x +j <0 || borda[y+1][x+j])){
                 return 1;
             }
         }
@@ -155,67 +138,118 @@ int colisao(int x, int y, int indice_peca_atual){
     return 0;
 }
 
+//Controlar a queda
+int descida() {
+    if(!colisao(posicaoPeca_coluna,posicaoPeca_linha+1, indice_peca)){
+        //Verifica se a peça pode descer uma linha sem colidir com outra peça ou a base
+        posicaoPeca_linha++; // Move o bloco para baixo
+        return 0; //peça não precisa ser fixada ainda
+    }
+    else{ //Se não eu fixo a peça lá mesmo e logo após eu verifico se completou a linha
+        fixarPeca();
+        checarLinhas();
+        return 1;
+    }
+}
+
+// Deixar a peça no tabuleiro
+void fixarPeca(){
+    //Um laço que percorre as linhas da peça atual
+    //Verifica se a posição atual da peça contém um bloco
+    for(int i=0; i<4; i++){
+        for(int j =0; j<4; j++){
+            if(pecas[indice_peca][i][j]){
+                // Aqui eu só coloco na matriz borda os valores positivos onde a peça estava, ou seja, valores fixos
+                borda[posicaoPeca_linha + i][posicaoPeca_coluna+ j]=1; //atualizaçao da matriz borda, marcando a posição da peça no tabuleiro
+            }
+        }
+    }
+}
+
+
 
 void checarLinhas(){
     //Percorre todas as linhas do tabuleiro, ver tá completa
-    for(int y = 0; y < ALTURA; y++){
+    for(int y = 0; y < LINHA; y++){
+        //verificando linhas
         int linha_completa = 1;
-        for(int x =0;; x< LARGURA; x++){
+        for(int x =0;; x< COLUNA; x++){
+            // se eu  achar na coluna um só zero eu não preciso verificar mais as outras colunas 
             if(borda[y][x] == 0){
-                linha_completa=0
+                linha_completa=0;
                 break
             }
         }
 
+        //Se tiver alguma linha completa, a variavel linha_completa permanecerá com o valor 1
         if(linha_completa){
-            //Se a linha está completa, continua com a remoção dela.
-            pontuacao += 1;:
+            //Se a linha está completa, remove ela e atualiza pontuação.
             pontuacao+=1;
+
+            //Descendo as coisas que tão em cima
             for(int i = y; i > 0; i--){
-                for(int j = 0; j < LARGURA; j++){
+                for(int j = 0; j < COLUNA; j++){
                     borda[i][j] = borda[i-1][j];     
                 }
             }
 
-            for ( int j = 0; j < LARGURA; j++){
+            for ( int j = 0; j < COLUNA; j++){ //Removendo blocos da linha, coluna por coluna
                 borda[0][j]=0;
             }
-            y--; //Reajusta o valor de y para verificar novamente a linha atual, já que ela foi substituída.
+            y--; //Reajusta o valor de y(linha) para verificar novamente a linha atual, já que ela foi substituída.
 
         }
     }
 }
 
-
+//Função que move a peça -1 esquerda,+1 direita
 void mover(int lado){
-    int x= x+ lado;
+    int x= posicaoPeca_coluna+ lado;
 
-    if( !colisao(x,posicao_da_peca_no_tabuleiroY,indice_peca)){
-        posicao_da_peca_no_tabuleiroX = x
+    //verificar colisão com a borda
+    if( !colisao(x,posicaoPeca_linha,indice_peca)){
+        posicaoPeca_coluna= x //Se não tiver colisão com a borda lateral a peça move
     }
+
+    //Se  tiver colisão com a borda lateral a peça fica no mesmo lugar
 }
 
 int main(){
     video_open();
+    key_open();
     srand(time(0));
-    indice_peca= rand() % 6;
+    indice_peca= rand() % 6; //Escolhendo uma peça aleatória
 
     while (1){
 
-        if(descida()){
-            indice_peca = rand() % 6;
-            posicao_da_peca_no_tabuleiroX = 3;
-            posicao_da_peca_no_tabuleiroY = 0;
+        int botao = key_read();
+        
+        //Verificando se algum botão foi pressionado
+        if(botao & 0x1){
+            mover(-1);
+        } else if(botao & 0x2){
+            mover(1);
+        }
+        
 
-            if(colisao(posicao_da_peca_no_tabuleiroX,posicao_da_peca_no_tabuleiroY,indice_peca)){
+        if(descida()){
+            indice_peca = rand() % 6; //Pegando o indice da peça
+            posicaoPeca_coluna= 4; 
+            posicaoPeca_linha = 0;
+
+            //Verifica se ouve colisão 
+            if(colisao(posicaoPeca_coluna,posicaoPeca_linha,indice_peca)){
                 printf("Game Over!")
             }
         }
 
         desenharCampo()
+        //Talvez usleep não pegue
+        usleep(TEMPO_QUEDA * 1000); // Controla a velocidade da queda
     }
 
 video_close();
+key_close();
 return 0;
 
 }
