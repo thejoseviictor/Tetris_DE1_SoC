@@ -8,9 +8,8 @@
 //Tamanho do jogo 20x10
 #define LINHA 20
 #define COLUNA 10
-#define TEMPO_QUEDA 400
-#define TEMPO_RESPOSTA 40
-#define TAMANHO_DO_BLOCO 12
+#define TEMPO_QUEDA 100
+#define TAMANHO_DO_BLOCO 10
 
 int pontuacao = 0; //
 int posicaoPeca_coluna=4; //Coluna no tabuleiro, posição horizontal
@@ -95,7 +94,7 @@ void desenharCampo(){
         desenharBloco(x,LINHA,video_ORANGE); //Lembrando que LINHA é a ultima linha 
     }
 
-    //laço para percorrer toda a matri para fazer os blocos fixo nela
+    //laço para percorrer toda a matriz para fazer os blocos fixo nela
     for (int y=0; y< LINHA; y++){
         for (int x=0; x<COLUNA; x++){
             if(borda[y][x]){  // No caso, se tiver um valor positivo, ou seja, se tiver um bloco 
@@ -103,7 +102,7 @@ void desenharCampo(){
                 desenharBloco(x+1,y,video_GREY);
             }
         }
-    }
+    }\
 
     //Desenha o bloco da peça na posição correta do tabuleiro, passando por toda a matriz do bloco
     for(int i=0; i<4;i++){
@@ -120,7 +119,7 @@ void desenharCampo(){
     //Mostrando a potuação
     char texto_da_pontuacao[20];
     sprintf(texto_da_pontuacao,"Pontuacao %d", pontuacao); //Fanzedo a string da texto_da_pontuacao
-    video_text(15, 2, texto_da_pontuacao);  // mostrando na tela
+    video_text(40, 2, texto_da_pontuacao);  // mostrando na tela
     video_show();
 
 }
@@ -138,20 +137,6 @@ int colisao(int x, int y, int indice_peca_atual){
     return 0;
 }
 
-//Controlar a queda
-int descida() {
-    if(!colisao(posicaoPeca_coluna,posicaoPeca_linha+1, indice_peca)){
-        //Verifica se a peça pode descer uma linha sem colidir com outra peça ou a base
-        posicaoPeca_linha++; // Move o bloco para baixo
-        return 0; //peça não precisa ser fixada ainda
-    }
-    else{ //Se não eu fixo a peça lá mesmo e logo após eu verifico se completou a linha
-        fixarPeca();
-        checarLinhas();
-        return 1;
-    }
-}
-
 // Deixar a peça no tabuleiro
 void fixarPeca(){
     //Um laço que percorre as linhas da peça atual
@@ -167,17 +152,16 @@ void fixarPeca(){
 }
 
 
-
 void checarLinhas(){
     //Percorre todas as linhas do tabuleiro, ver tá completa
     for(int y = 0; y < LINHA; y++){
         //verificando linhas
         int linha_completa = 1;
-        for(int x =0;; x< COLUNA; x++){
+        for(int x =0; x< COLUNA; x++){
             // se eu  achar na coluna um só zero eu não preciso verificar mais as outras colunas 
             if(borda[y][x] == 0){
                 linha_completa=0;
-                break
+                break;
             }
         }
 
@@ -202,13 +186,30 @@ void checarLinhas(){
     }
 }
 
+//Controlar a queda
+int descida() {
+    if(!colisao(posicaoPeca_coluna,posicaoPeca_linha+1, indice_peca)){
+        //Verifica se a peça pode descer uma linha sem colidir com outra peça ou a base
+        posicaoPeca_linha++; // Move o bloco para baixo
+        return 0; //peça não precisa ser fixada ainda
+    }
+    else{ //Se não eu fixo a peça lá mesmo e logo após eu verifico se completou a linha
+        fixarPeca();
+        checarLinhas();
+        return 1;
+    }
+}
+
+
+
+
 //Função que move a peça -1 esquerda,+1 direita
 void mover(int lado){
     int x= posicaoPeca_coluna+ lado;
 
     //verificar colisão com a borda
     if( !colisao(x,posicaoPeca_linha,indice_peca)){
-        posicaoPeca_coluna= x //Se não tiver colisão com a borda lateral a peça move
+        posicaoPeca_coluna= x; //Se não tiver colisão com a borda lateral a peça move
     }
 
     //Se  tiver colisão com a borda lateral a peça fica no mesmo lugar
@@ -216,13 +217,14 @@ void mover(int lado){
 
 int main(){
     video_open();
-    key_open();
+    video_erase();
+    //key_open();
     srand(time(0));
     indice_peca= rand() % 6; //Escolhendo uma peça aleatória
 
     while (1){
 
-        int botao = key_read();
+        /*int botao = key_read();
         
         //Verificando se algum botão foi pressionado
         if(botao & 0x1){
@@ -230,7 +232,7 @@ int main(){
         } else if(botao & 0x2){
             mover(1);
         }
-        
+        */
 
         if(descida()){
             indice_peca = rand() % 6; //Pegando o indice da peça
@@ -239,17 +241,18 @@ int main(){
 
             //Verifica se ouve colisão 
             if(colisao(posicaoPeca_coluna,posicaoPeca_linha,indice_peca)){
-                printf("Game Over!")
+                printf("Game Over!");
+                break;
             }
         }
 
-        desenharCampo()
+        desenharCampo();
         //Talvez usleep não pegue
         usleep(TEMPO_QUEDA * 1000); // Controla a velocidade da queda
     }
 
 video_close();
-key_close();
+//key_close();
 return 0;
 
 }
