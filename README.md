@@ -134,7 +134,7 @@
   Realiza as calibragens e configurações iniciais dos sensores do ADXL345, com base nas calibragens do "FPGA Academy".<br>
 
   <strong>int16_t lerEixoX(volatile unsigned int *, volatile unsigned int *);</strong><br>
-  Recebe como entrada os endereços dos registradores "I2C0_DATA" e "I2C0_RXFLR".<br>
+  Recebe como entradas os endereços dos registradores "I2C0_DATA" e "I2C0_RXFLR".<br>
   Lê e retorna os valores de medição do eixo X em um inteiro de 16 bits com sinal.<br>
 
   Diante do exposto, a função principal faz a leitura do valor do eixo x, para valores maiores do que "+100g" a peça se moverá para a direita, para valores menores do que "-100g" a peça se moverá para a esquerda.
