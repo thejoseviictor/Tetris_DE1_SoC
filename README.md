@@ -118,20 +118,20 @@
 
   Do mesmo modo, a lógica de movimentação conta com as seguintes funções:<br>
 
-  int open_memory(void);<br>
+  <strong> int open_memory(void);</strong><br>
   Acessa a memória física do sistema linux, através do diretório "/dev/mem", e retorna "-1", caso ocorra um erro na abertura do arquivo de memória<br>
 
-  void enable_I2C0_HPS(int);<br>
+  <strong> void enable_I2C0_HPS(int);</strong><br>
   Habilita a comunicação do ADXL345 com o I2C0, através do bloco de multiplexadores no módulo "sysmgr", usando os pinos HPS.<br>
 
-  void setting_I2C0_ADXL345(void *);<br>
+  <strong>void setting_I2C0_ADXL345(void *);</strong><br>
   Inicia a comunicação I2C0 e seleciona o "ADXL345" como slave/target.<br>
 
-  void setting_ADXL345(volatile unsigned int *);<br>
+  <strong>void setting_ADXL345(volatile unsigned int *);</strong><br>
   Realiza as calibragens e configurações iniciais dos sensores do ADXL345, com base nas calibragens do "FPGA Academy".<br>
 
-  int16_t lerEixoX(volatile unsigned int *, volatile unsigned int *);<br>
-  Lê e retorna os valores de medição do eixo X.<br>
+  <strong>int16_t lerEixoX(volatile unsigned int *, volatile unsigned int *);</strong><br>
+  Lê e retorna os valores de medição do eixo X em um inteiro de 16 bits com sinal.<br>
 
   Diante do exposto, a função principal faz a leitura do valor do eixo x, para valores maiores do que "+100g" a peça se moverá para a direita, para valores menores do que "-100g" a peça se moverá para a esquerda.
 </div>
