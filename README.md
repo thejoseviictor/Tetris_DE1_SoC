@@ -54,6 +54,11 @@
 
   Texto
 
+  <p align="center">
+  <img src="Images/DE1-SoC Layout.webp" width = "500" />
+  </p>
+  <p align="center"><strong>Kit de desenvolvimento DE1-SoC </strong></p>
+
   </div>
 
   <h3> - Linguagem C: </h3>  
@@ -68,6 +73,11 @@
 
   Texto
 
+  <p align="center">
+  <img src="Images/Monitor CTR Dell E733c.jpg" width = "400" />
+  </p>
+  <p align="center"><strong>Monitor CRT DELL E733c</strong></p>
+
   </div>  
   
   <h3> - Visual Studio Code: </h3>  
@@ -75,10 +85,19 @@
 
   Texto
 
+  <p align="center">
+  <img src="Images/Visual Code Studio editor.png" width = "500" />
+  </p>
+  <p align="center"><strong></strong></p>
+
+  <div align="center">
+  <a href="https://code.visualstudio.com/">Visual Code Studio</a>
+  </div>
+
   </div>  
 
   <h3> - Compilador GNU: </h3>  
-  <div align="justify">  
+  <div align="justify"> 
 
   Texto
 
