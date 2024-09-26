@@ -1,9 +1,6 @@
-# Para o Jogo "Tetris" no DE1-SoC
+# Para o Jogo "Tetris", Problema 01, no DE1-SoC
+# -lintelfpgaup -> Para Funções do VGA no DE1-SoC
 
-all: tetris
-
-tetris: tetris.o
-	gcc -o tetris tetris.o -std=c99 -lintelfpgaup
-
-tetris.o: tetris.c
-	gcc -c tetris.c
+all:
+	gcc tetris.c -o tetris -std=c99 -lintelfpgaup
+	sudo ./tetris
