@@ -112,7 +112,7 @@
 
   A comunicação entre o acelerômetro e o Cyclone V é feita através do serial I2C0, usando o HPS.<br>
 
-  Para conectar o I2C0 ao ADXL345 é preciso modificar as entradas do bloco de multiplexadores (Pin Mux). Definindo a entrada "0" nos registradores "GENERALIO7 e GENERALIO8" e "1" no "I2C0USEFPGA".<br>
+  Para conectar o I2C0 ao ADXL345 é preciso modificar as entradas do bloco de multiplexadores (Pin Mux). Definindo a entrada "1" nos registradores "GENERALIO7/GENERALIO8" e "0" no "I2C0USEFPGA".<br>
 
   Antes de instanciar as funções do acelerômetro, é preciso mapear os endereços físicos base do "I2C0" e "SYSMGR" em endereços virtuais. E, em seguida, mapear os registradores restantes através da soma do endereço virtual base com o seu offset.<br>
 
