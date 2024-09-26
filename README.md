@@ -106,8 +106,34 @@
   <h3>- Movimentação de peças: </h2>
   <div align="justify">
 
-  Texto
+  A lógica de movimentação das peças utiliza os sensores de força G do acelerômetro ADXL345, presente no FPGA DE1-SoC Cyclone V.<br>
 
+  O ADXL345 possui três eixo (X, Y, Z) com alta resolução de medição, porém apenas o eixo X foi usado... permitindo a movimentação das peças no sentido horizontal.<br>
+
+  A comunicação entre o acelerômetro e o Cyclone V é feita através do serial I2C0, usando o HPS.<br>
+
+  Para conectar o I2C0 ao ADXL345 é preciso modificar as entradas do bloco de multiplexadores (Pin Mux). Definindo a entrada "0" nos registradores "GENERALIO7 e GENERALIO8" e "1" no "I2C0USEFPGA".<br>
+
+  Antes de instanciar as funções do acelerômetro, é preciso mapear os endereços físicos base do "I2C0" e "SYSMGR" em endereços virtuais. E, em seguida, mapear os registradores restantes através da soma do endereço virtual base com o seu offset.<br>
+
+  Do mesmo modo, a lógica de movimentação conta com as seguintes funções:<br>
+
+  int open_memory(void);<br>
+  Acessa a memória física do sistema linux, através do diretório "/dev/mem", e retorna "-1", caso ocorra um erro na abertura do arquivo de memória<br>
+
+  void enable_I2C0_HPS(int);<br>
+  Habilita a comunicação do ADXL345 com o I2C0, através do bloco de multiplexadores no módulo "sysmgr", usando os pinos HPS.<br>
+
+  void setting_I2C0_ADXL345(void *);<br>
+  Inicia a comunicação I2C0 e seleciona o "ADXL345" como slave/target.<br>
+
+  void setting_ADXL345(volatile unsigned int *);<br>
+  Realiza as calibragens e configurações iniciais dos sensores do ADXL345, com base nas calibragens do "FPGA Academy".<br>
+
+  int16_t lerEixoX(volatile unsigned int *, volatile unsigned int *);<br>
+  Lê e retorna os valores de medição do eixo X.<br>
+
+  Diante do exposto, a função principal faz a leitura do valor do eixo x, para valores maiores do que "+100g" a peça se moverá para a direita, para valores menores do que "-100g" a peça se moverá para a esquerda.
 </div>
 
 </div>
@@ -122,6 +148,8 @@ Texto
 <h2>Referências</h2>
 <div align="justify">
 
-https://newzoo.com/resources/blog/explore-the-global-games-market-in-2023
+https://newzoo.com/resources/blog/explore-the-global-games-market-in-2023<br>
+Cyclone V HPS Register Address Map and Definitions: https://www.intel.com/content/www/us/en/programmable/hps/cyclone-v/hps.html<br>
+Lab 7 - Using the ADXL345 Accelerometer: https://fpgacademy.org/courses.html
 
 </div>
