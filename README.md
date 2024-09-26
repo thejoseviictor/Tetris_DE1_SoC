@@ -74,7 +74,7 @@
   Texto
 
   <p align="center">
-  <img src="Images/Monitor CTR Dell E733c.jpg" width = "400" />
+  <img src="Images/Monitor CTR Dell E773c.jpg" width = "400" />
   </p>
   <p align="center"><strong>Monitor CRT DELL E733c</strong></p>
 
