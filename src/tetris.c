@@ -414,7 +414,9 @@ int main(){
 
     while (1){
 
-        int botao = KEY_read();
+        int botao;
+        
+        KEY_read(&botao);
 
         // Verificando se KEY0 foi pressionado 
         if (botao & 0x1) {  
@@ -425,11 +427,11 @@ int main(){
         eixo_x = lerEixoX(I2C0_DATA, I2C0_RXFLR);
 
         // Mover Peças para Esquerda ou Direita:
-        if (eixo_x > 100 && pausa)
+        if (eixo_x > 100 )
         {
             mover(1);
         }
-        else if (eixo_x < -100 && pausa)
+        else if (eixo_x < -100 )
         {
             mover(-1);
         }
