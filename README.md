@@ -71,7 +71,7 @@
   <h3> - Monitores utilizados: </h3>  
   <div align="justify">  
 
-  Texto
+  O monitor utilizado no desenvolvimento do projeto é o "CTR DELL E773c" que utiliza a tecnologia de tubo de raios catódicos para projeção imagens. Possui uma tela de 16 polegadas, resolução máxima de 1280 x 1024 pixels, entrada VGA e com frequência horizontal de até 70 kHz e taxa de atualização vertical de até 160 Hz​. Proporciona um bom contraste e brilho em comparação com outros monitores CRT da período de fabricação.
 
   <p align="center">
   <img src="Images/Monitor CTR Dell E773c.jpg" width = "400" />
@@ -103,12 +103,6 @@
 
   </div> 
 
-  <h3> - Visual Studio Code: </h3>  
-  <div align="justify">  
-
-  Texto
-
-  </div> 
   
 </div>
 
@@ -127,7 +121,7 @@
 
   A lógica de movimentação das peças utiliza os sensores de força G do acelerômetro ADXL345, presente no FPGA DE1-SoC Cyclone V.<br>
 
-  O ADXL345 possui três eixo (X, Y, Z) com alta resolução de medição, porém apenas o eixo X foi usado... permitindo a movimentação das peças no sentido horizontal.<br>
+  O ADXL345 possui três eixo (X, Y, Z) com alta resolução de medição, porém apenas o eixo X foi usado, permitindo a movimentação das peças no sentido horizontal.<br>
 
   A comunicação entre o acelerômetro e o Cyclone V é feita através do serial I2C0, usando o HPS.<br>
 
