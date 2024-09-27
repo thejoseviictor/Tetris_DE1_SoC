@@ -1,6 +1,6 @@
-<h2>Universidade Estadual de Feira de Santana<br>  
+<h4>Universidade Estadual de Feira de Santana<br>  
   
-<br>Discentes:  
+<br> Discentes: 
 <uL> 
   <li><a href="https://github.com/thejoseviictor">José Victor de Oliveira Correia</a></li>
   <li><a href="https://github.com/Macedoxx2000">João Victor Macedo dos Santos Lima </a></li>
@@ -13,7 +13,7 @@
 <br>Componente: TEC499 - MI-Sistemas digitais;  
 <br>Docente: Wild Freitas da Silva;  
 <br>Período: 2024.2.  
-</h2>   
+</h4>   
 
 
 <h1 align="center">Projeto 1: Jogo Tetris .</h1>  
