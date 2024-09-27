@@ -15,8 +15,13 @@
 <br>Período: 2024.2.  
 </h4>   
 
+<div style="position: relative; width: 100%; text-align: center;">
+  <img src="/Images/wtetris.png" alt="Wallapaper" style="width: 60%; opacity: 0.5;"/>
+  <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">
+    -----------------------------------------------------------------------------------------------
+  </h1>
+</div>
 
-<h1 align="center">Projeto 1: Jogo Tetris .</h1>  
 <h2 align="center">Game inspirado no clássico Tetris, desenvolvido para o kit de desenvolvimento DE1-SoC utilizando linguagem C </h2>  
 
 
@@ -177,6 +182,26 @@ A função mover é responsável pelo movimento lateral da peça. Ela analisa se
 </div>
 
 </div>
+
+<p align="center">
+  <img src="/Images/Apagamento de linha e pontuação.gif" alt="Apagamento de linha e pontuação" width="800"/>
+  <br>
+  <em>1. Apagamento de linha e pontuação.</em>
+</p>
+
+<p align="center">
+  <img src="/Images/Pausar-Continuar.gif" alt="Pausar-Continuar" width="800"/>
+  <br>
+  <em>2. Pausar e Continuar.</em>
+</p>
+
+<p align="center">
+  <img src="/Images/Fim de jogo.gif" alt="Fim de jogo" width="800"/>
+  <br>
+  <em>3. Fim de jogo.</em>
+</p>
+
+
 
 <h2>Conclusões</h2>
 <div align="justify">
