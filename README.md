@@ -181,7 +181,9 @@ A função mover é responsável pelo movimento lateral da peça. Ela analisa se
 <h2>Conclusões</h2>
 <div align="justify">
 
-Texto
+  Como resultado, obteve-se um jogo de Tetris funcional implementado na DE1-SoC Cyclone V , utilizando o acelerômetro ADXL345 para controlar a movimentação das peças. O jogo permite interagir de forma intuitiva, movendo as peças para a esquerda ou direita e realizando rotações, dependendo da inclinação do dispositivo.
+  Todos os requisitos foram cumpridos.
+  Não houve gestão de tempo suficiente para implementar funcionalidades a mais.
 
 </div>
 
