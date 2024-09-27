@@ -190,8 +190,12 @@ A função mover é responsável pelo movimento lateral da peça. Ela analisa se
 <h2>Referências</h2>
 <div align="justify">
 
-https://newzoo.com/resources/blog/explore-the-global-games-market-in-2023<br>
-Cyclone V HPS Register Address Map and Definitions: https://www.intel.com/content/www/us/en/programmable/hps/cyclone-v/hps.html<br>
-Lab 7 - Using the ADXL345 Accelerometer: https://fpgacademy.org/courses.html
+WIJMAN, Tom. New free report: Explore the global games market in 2023. [S. l.], 8 ago. 2023. Disponível em: https://newzoo.com/resources/blog/explore-the-global-games-market-in-2023<br>. Acesso em: 25 set. 2024. <br>  
+
+INTEL CORPORATION. Cyclone V HPS Register Address Map and Definitions. [S. l.], 2012. Disponível em: https://www.intel.com/content/www/us/en/programmable/hps/cyclone-v/hps.html. Acesso em: 20 set. 2024.<br>  
+
+FPGACADEMY. Lab 7 - Using the ADXL345 Accelerometer. [S. l.], 2021. Disponível em: https://fpgacademy.org/courses.html. Acesso em: 6 set. 2024.<br>  
+
+ROSS, Matt. Dell E773c. [S. l.], 30 ago. 2024. Disponível em: https://crtdatabase.com/crts/dell/dell-e773c. Acesso em: 25 set. 2024.<br>  
 
 </div>
