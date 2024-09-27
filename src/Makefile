@@ -2,5 +2,5 @@
 # -lintelfpgaup -> Para Funções do VGA no DE1-SoC
 
 all:
-	gcc tetris.c -o tetris -std=c99 -lintelfpgaup
+	gcc tetris.c ADXL345.c jogabilidade.c -o tetris -std=c99 -lintelfpgaup
 	sudo ./tetris
