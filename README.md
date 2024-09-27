@@ -52,7 +52,7 @@
   <h3> - Kit de desenvolvimento DE1-SoC: </h3>  
   <div align="justify">  
 
-  Texto
+  O kit de desenvolvimento DE1-SoC, fabricado pela empresa Terasic, é uma placa baseada no chip Intel (Altera) Cyclone V SoC FPGA 5CSEMA5F31C6 e no Processador Dual-Core ARM Cortex-A9. É frequentimente utilizada em projetos educacionais de integração entre hardware e software.
 
   <p align="center">
   <img src="Images/DE1-SoC Layout.webp" width = "500" />
