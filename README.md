@@ -76,9 +76,16 @@
   </p>
   <p align="center"><strong>Kit de desenvolvimento DE1-SoC </strong></p>
 
+<br>
+Os periféricos da placa DE1-SoC usados no projeto foram:
+
+* VGA Out
+* Accelerometer
+* Button 01
+* HPS Gigabit Ethernet
+  
   </div>
 
-<br>
 <br>
   
 
@@ -115,7 +122,6 @@
   O Visual Studio Code (VS Code) é um editor de código-fonte multiplataforma disponível para Windows, macOS e Linux e desenvolvido pela Microsoft. Oferece suporte nativo para diversas linguagens de programação, como JavaScript, TypeScript, Python, C, C++, Java, PHP, Ruby e permite a instalação de extensões para suportar mais linguagens. Além disso permite sugestões de código, documentação e programação colaborativa em tempo real, e grande capacidade de personalização para atender as preferências do programador.
 
 <br>
-<br>
 
 
   <p align="center">
@@ -140,7 +146,6 @@
 </div>
 
 <br>
-<br>
 
 <h2>Lógica de jogo</h2>  
   <div align="justify">
@@ -160,7 +165,6 @@ Nessa seção será tratada a descrição da parte gráfica, movimentação, apr
   </p>
   <p align="center"><strong>Diagrama sobre a lógica de jogo</strong></p>
 
-<br>
 <br>
   <h3>- Parte visual e gráfica:</h2>  
   <div align="justify">  
@@ -189,7 +193,6 @@ Na função de descida, verifico se há colisão no próximo deslocamento da pe�
 
 A função mover é responsável pelo movimento lateral da peça. Ela analisa se a nova posição resultaria em uma colisão com outra peça ou com as bordas do cenário, por meio da função colisao(). Se não houver colisão, a posição da peça é atualizada, permitindo que ela se mova para o lado desejado. Caso contrário, a nova posição, que está armazenada em uma variável temporária, não é atualizada, e o movimento é impedido.  
 
-<br>
 <br>
 <br>
 
