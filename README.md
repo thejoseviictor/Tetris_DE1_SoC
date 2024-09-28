@@ -1,6 +1,8 @@
-<h4>Universidade Estadual de Feira de Santana<br>  
-  
-<br> Discentes: 
+<div align="justify">
+
+  <h4>Universidade Estadual de Feira de Santana  
+    
+<br>Discentes: 
 <uL> 
   <li><a href="https://github.com/thejoseviictor">José Victor de Oliveira Correia</a></li>
   <li><a href="https://github.com/Macedoxx2000">João Victor Macedo dos Santos Lima </a></li>
@@ -13,17 +15,21 @@
 <br>Componente: TEC499 - MI-Sistemas digitais;  
 <br>Docente: Wild Freitas da Silva;  
 <br>Período: 2024.2.  
-</h4>   
+</h4>  
 
-<div style="position: relative; width: 100%; text-align: center;">
-  <img src="/Images/wtetris.png" alt="Wallapaper" style="width: 60%; opacity: 0.5;"/>
-  <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">
-    -----------------------------------------------------------------------------------------------
-  </h1>
+<br>
+<br>
+
 </div>
+<p align="center">
+  <img src="Images/wtetris.jpeg" width = "600" />
+  </p>
+  <p align="center"><strong> </strong></p>
 
 <h2 align="center">Game inspirado no clássico Tetris, desenvolvido para o kit de desenvolvimento DE1-SoC utilizando linguagem C </h2>  
 
+<br>
+<br>
 
 
 <h2 align="justify">Introdução</h2>
@@ -38,6 +44,9 @@
 
   </div>
 
+<br>
+<br>
+
 <h2 align="justify">Descrição do projeto</h2>
 
   <div align="justify">
@@ -51,6 +60,9 @@
 
   </div>  
 
+<br>
+<br>
+
 <h2>Descrição de softwares, equipamentos e ferramentas utilizadas: </h2>  
 <div align="justify">  
 
@@ -60,11 +72,15 @@
   O kit de desenvolvimento DE1-SoC, fabricado pela empresa Terasic, é uma placa baseada no chip Intel (Altera) Cyclone V SoC FPGA 5CSEMA5F31C6 e no Processador Dual-Core ARM Cortex-A9. É frequentimente utilizada em projetos educacionais de integração entre hardware e software.
 
   <p align="center">
-  <img src="Images/DE1-SoC Layout.webp" width = "500" />
+  <img src="Images/DE1-SoC Layout.webp" width = "800" />
   </p>
   <p align="center"><strong>Kit de desenvolvimento DE1-SoC </strong></p>
 
   </div>
+
+<br>
+<br>
+  
 
   <h3> - Linguagem C: </h3>  
   <div align="justify">  
@@ -72,6 +88,10 @@
   A linguagem C, criada em 1970, é uma linguagem de programação poderosa pelo seu desempenho e controle excepcional de baixo nível em hardware, manipulação direta de memória, possibilitando acesso a registros de hardware, memória e controle de periféricos. Através disso, ela tem a capacidade de ser utilizada em propositos gerais com mínimas alterações possíveis e assim permitindo um alto grau de compatibilidade. 
 
   </div>  
+
+<br>
+<br>
+  
 
   <h3> - Monitor CTR DELL E773c: </h3>  
   <div align="justify">  
@@ -84,14 +104,22 @@
   <p align="center"><strong>Monitor CRT DELL E733c</strong></p>
 
   </div>  
+
+<br>
+<br>
+  
   
   <h3> - Visual Studio Code: </h3>  
   <div align="justify">  
 
   O Visual Studio Code (VS Code) é um editor de código-fonte multiplataforma disponível para Windows, macOS e Linux e desenvolvido pela Microsoft. Oferece suporte nativo para diversas linguagens de programação, como JavaScript, TypeScript, Python, C, C++, Java, PHP, Ruby e permite a instalação de extensões para suportar mais linguagens. Além disso permite sugestões de código, documentação e programação colaborativa em tempo real, e grande capacidade de personalização para atender as preferências do programador.
 
+<br>
+<br>
+
+
   <p align="center">
-  <img src="Images/Visual Code Studio editor.png" width = "500" />
+  <img src="Images/Visual Code Studio editor.png" width = "650" />
   </p>
   <p align="center"><strong></strong></p>
 
@@ -111,9 +139,29 @@
   
 </div>
 
+<br>
+<br>
+
 <h2>Lógica de jogo</h2>  
   <div align="justify">
 
+<div align="justify">
+
+Nessa seção será tratada a descrição da parte gráfica, movimentação, apresentação de diagrama com a lógica de jogo e imagens oriundas de testes realizados no ambiente de desenvolvimento Laboratório de Eletrônica Digital e Sistemas (LEDS - UEFS). <br>
+
+</div>
+
+<br>
+<br>
+
+  </div>
+<p align="center">
+  <img src="Images/Lógica de Jogo.jpg" width = "600" />
+  </p>
+  <p align="center"><strong>Diagrama sobre a lógica de jogo</strong></p>
+
+<br>
+<br>
   <h3>- Parte visual e gráfica:</h2>  
   <div align="justify">  
 
@@ -139,8 +187,16 @@ Além disso, existe a função de checagem de linhas, responsável por percorrer
 
 Na função de descida, verifico se há colisão no próximo deslocamento da peça. Se não houver, incremento em um o valor do índice da linha da peça, fazendo-a se deslocar para baixo. No entanto, se houver colisão, a função de fixar a peça é chamada. Isso acontece porque, se existir alguma peça que impeça o deslocamento, significa que a peça em questão deve ser fixada, ou seja, não pode mais se mover, pois isso sobreporia outra peça. Após isso, a função de verificar linha também é chamada, pois, a cada vez que uma peça é fixada, é necessário checar se alguma linha está completa.
 
-A função mover é responsável pelo movimento lateral da peça. Ela analisa se a nova posição resultaria em uma colisão com outra peça ou com as bordas do cenário, por meio da função colisao(). Se não houver colisão, a posição da peça é atualizada, permitindo que ela se mova para o lado desejado. Caso contrário, a nova posição, que está armazenada em uma variável temporária, não é atualizada, e o movimento é impedido.
+A função mover é responsável pelo movimento lateral da peça. Ela analisa se a nova posição resultaria em uma colisão com outra peça ou com as bordas do cenário, por meio da função colisao(). Se não houver colisão, a posição da peça é atualizada, permitindo que ela se mova para o lado desejado. Caso contrário, a nova posição, que está armazenada em uma variável temporária, não é atualizada, e o movimento é impedido.  
 
+<br>
+<br>
+<br>
+
+ <p align="center">
+  <img src="Images/Peças do jogo.jpg" width = "650" />
+  </p>
+  <p align="center"><strong>6 peças utilizadas no projeto.</strong></p>
 
   </div>  
 
@@ -181,6 +237,9 @@ A função mover é responsável pelo movimento lateral da peça. Ela analisa se
   Diante do exposto, a função principal faz a leitura do valor do eixo x, para valores maiores do que "+100g" a peça se moverá para a direita, para valores menores do que "-100g" a peça se moverá para a esquerda.
 </div>
 
+<br>
+<br>
+
 </div>
 
 <p align="center">
@@ -189,11 +248,15 @@ A função mover é responsável pelo movimento lateral da peça. Ela analisa se
   <em>1. Apagamento de linha e pontuação.</em>
 </p>
 
+<br>
+
 <p align="center">
   <img src="/Images/Pausar-Continuar.gif" alt="Pausar-Continuar" width="800"/>
   <br>
   <em>2. Pausar e Continuar.</em>
 </p>
+
+<br>
 
 <p align="center">
   <img src="/Images/Fim de jogo.gif" alt="Fim de jogo" width="800"/>
@@ -201,7 +264,8 @@ A função mover é responsável pelo movimento lateral da peça. Ela analisa se
   <em>3. Fim de jogo.</em>
 </p>
 
-
+<br>
+<br>
 
 <h2>Conclusões</h2>
 <div align="justify">
@@ -211,6 +275,9 @@ A função mover é responsável pelo movimento lateral da peça. Ela analisa se
   Não houve gestão de tempo suficiente para implementar funcionalidades a mais.
 
 </div>
+
+<br>
+<br>
 
 <h2>Referências</h2>
 <div align="justify">
