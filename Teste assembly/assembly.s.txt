@@ -1,23 +1,15 @@
-.section .data
-    num1: .word 5            @ Primeiro número
-    num2: .word 10           @ Segundo número
-    result: .word 0          @ Local onde o resultado será armazenado
+section .data
+    msg db "Hello world!", 0ah
 
-.section .text
-.global _start
+section .text
+    global _start
 
 _start:
-    LDR r0, =num1            @ Carrega o endereço do primeiro número
-    LDR r1, [r0]             @ Lê o primeiro número em r1
-
-    LDR r0, =num2            @ Carrega o endereço do segundo número
-    LDR r2, [r0]             @ Lê o segundo número em r2
-
-    ADD r3, r1, r2           @ Soma r1 e r2, resultado em r3
-
-    LDR r0, =result          @ Carrega o endereço do resultado
-    STR r3, [r0]             @ Armazena o resultado na memória
-
-    @ Sair do programa
-    MOV r7, #1               @ syscall: exit
-    SVC 0
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, msg
+    mov rdx, 13
+    syscall
+    mov rax, 60
+    mov rdi, 0
+    syscall
