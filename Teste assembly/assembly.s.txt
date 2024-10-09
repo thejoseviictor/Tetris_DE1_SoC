@@ -7,17 +7,17 @@
 .global _start
 
 _start:
-    ldr r0, =num1            @ Carrega o endereço do primeiro número
-    ldr r1, [r0]             @ Lê o primeiro número em r1
+    LDR r0, =num1            @ Carrega o endereço do primeiro número
+    LDR r1, [r0]             @ Lê o primeiro número em r1
 
-    ldr r0, =num2            @ Carrega o endereço do segundo número
-    ldr r2, [r0]             @ Lê o segundo número em r2
+    LDR r0, =num2            @ Carrega o endereço do segundo número
+    LDR r2, [r0]             @ Lê o segundo número em r2
 
-    add r3, r1, r2           @ Soma r1 e r2, resultado em r3
+    ADD r3, r1, r2           @ Soma r1 e r2, resultado em r3
 
-    ldr r0, =result          @ Carrega o endereço do resultado
-    str r3, [r0]             @ Armazena o resultado na memória
+    LDR r0, =result          @ Carrega o endereço do resultado
+    STR r3, [r0]             @ Armazena o resultado na memória
 
     @ Sair do programa
-    mov r7, #1               @ syscall: exit
-    svc 0
+    MOV r7, #1               @ syscall: exit
+    SVC 0
