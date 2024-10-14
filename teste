@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <unistd.h>
+
+#define FPGA_BASE_ADDR 0xFF200000  // Exemplo de endereço base do FPGA
+#define GPIO_BASE_ADDR 0xFF200060  // Endereço base dos GPIOs
+#define FPGA_SPAN 0x00200000       // Tamanho do mapeamento
+
+volatile unsigned int *fpga_base;
+volatile unsigned int *gpio_base;
+
+void map_memory() {
+    int fd;
+    
+    // Abre o dispositivo de memória
+    if ((fd = open("/dev/mem", O_RDWR | O_SYNC)) == -1) {
+        perror("Error opening /dev/mem");
+        return;
+    }
+    
+    // Mapeia a memória do FPGA
+    fpga_base = (unsigned int *)mmap(NULL, FPGA_SPAN, PROT_READ | PROT_WRITE, MAP_SHARED, fd, FPGA_BASE_ADDR);
+    if (fpga_base == MAP_FAILED) {
+        perror("Error mapping FPGA base address");
+        close(fd);
+        return;
+    }
+
+    // Mapeia a memória dos GPIOs
+    gpio_base = (unsigned int *)mmap(NULL, FPGA_SPAN, PROT_READ | PROT_WRITE, MAP_SHARED, fd, GPIO_BASE_ADDR);
+    if (gpio_base == MAP_FAILED) {
+        perror("Error mapping GPIO base address");
+        close(fd);
+        return;
+    }
+
+    close(fd);
+}
+
+int main() {
+    map_memory();
+    // Agora, use fpga_base e gpio_base para acessar os registradores mapeados
+    return 0;
+}
